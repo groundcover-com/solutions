@@ -1,0 +1,52 @@
+vector:
+  extraVolumes:
+  - configMap:
+      defaultMode: 420
+      name: vector-enrichment-tables
+    name: vector-enrichment-tables
+  extraVolumeMounts:
+  - mountPath: /etc/vector/enrichment_tables
+    name: vector-enrichment-tables
+    readOnly: true
+  customGlobalConfig:
+    enrichment_tables:
+      tenant-id-to-tenant-name:
+        type: file
+        file:
+          path: "/etc/vector/enrichment_tables/tenant-id-to-tenant-name.csv"
+          encoding: 
+            type: "csv"
+          schema:
+            key: "string"
+            value: "string"
+  customComponents:
+    sinks:
+      remote:
+        json_logs_sink:
+          inputs:
+            - enrich_tenant_id
+    transforms:
+      otel:
+        enrich_tenant_id:
+          inputs:
+          - logs_from_logs
+          - json_logs
+          type: remap
+          source: |-
+             tenantId, err = get(value: .string_attributes, path: ["tenantId"])
+             if err == null && tenantId != null && tenantId != "" {
+               result, err = get_enrichment_table_record("tenant-id-to-tenant-name", { "tenantId":  tenantId }, case_sensitive: true)
+               if err == null && result != null {
+                 .string_attributes.tenantName = result.tenantName
+               }
+             }
+  extraObjects:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: vector-enrichment-tables
+      data:
+        tenant-id-to-tenant-name.csv: |
+          tenantId,tenantName
+          firstId,firstName
+          secondId,secondName
