@@ -10,10 +10,10 @@ vector:
     readOnly: true
   customGlobalConfig:
     enrichment_tables:
-      tenant-id-to-tenant-name:
+      enrichment-table-data:
         type: file
         file:
-          path: "/etc/vector/enrichment_tables/tenant-id-to-tenant-name.csv"
+          path: "/etc/vector/enrichment_tables/enrichment-table-data.csv"
           encoding: 
             type: "csv"
           schema:
@@ -24,20 +24,20 @@ vector:
       remote:
         json_logs_sink:
           inputs:
-            - enrich_tenant_id
+            - enrich_key_value
     transforms:
       otel:
-        enrich_tenant_id:
+        enrich_key_value:
           inputs:
           - logs_from_logs
           - json_logs
           type: remap
           source: |-
-             tenantId, err = get(value: .string_attributes, path: ["tenantId"])
-             if err == null && tenantId != null && tenantId != "" {
-               result, err = get_enrichment_table_record("tenant-id-to-tenant-name", { "tenantId":  tenantId }, case_sensitive: true)
+             key, err = get(value: .string_attributes, path: ["key"])
+             if err == null && key != null && key != "" {
+               result, err = get_enrichment_table_record("enrichment-table-data", { "key":  key }, case_sensitive: true)
                if err == null && result != null {
-                 .string_attributes.tenantName = result.tenantName
+                 .string_attributes.value = result.value
                }
              }
   extraObjects:
@@ -46,7 +46,7 @@ vector:
       metadata:
         name: vector-enrichment-tables
       data:
-        tenant-id-to-tenant-name.csv: |
-          tenantId,tenantName
+        enrichment-table-data.csv: |
+          key,value
           firstId,firstName
           secondId,secondName
