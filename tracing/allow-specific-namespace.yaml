@@ -1,0 +1,3 @@
+tracesNamespaceFilters:
+  - matchType: "allow"
+    regex: "my-namespace"

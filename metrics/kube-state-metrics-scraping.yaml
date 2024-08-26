@@ -1,0 +1,47 @@
+custom-metrics:
+    enabled: true
+    extraArgs:
+      remoteWrite.maxDailySeries: "10000000"
+      remoteWrite.maxHourlySeries: "1000000"
+      promscrape.maxScrapeSize: "200000000"
+    extraScrapeConfigs:
+    - job_name: kube-state-metrics
+      honor_timestamps: true
+      honor_labels: true
+      scrape_interval: 1m
+      scrape_timeout: 1m
+      metrics_path: /metrics
+      scheme: http
+      static_configs:
+      - targets:
+        - groundcover-kube-state-metrics.groundcover.svc.cluster.local:8080
+kube-state-metrics:
+  collectors:
+    - certificatesigningrequests
+    - configmaps
+    - cronjobs
+    - daemonsets
+    - deployments
+    - endpoints
+    - horizontalpodautoscalers
+    - ingresses
+    - jobs
+    - leases
+    - limitranges
+    - mutatingwebhookconfigurations
+    - namespaces
+    - networkpolicies
+    - nodes
+    - persistentvolumeclaims
+    - persistentvolumes
+    - poddisruptionbudgets
+    - pods
+    - replicasets
+    - replicationcontrollers
+    - resourcequotas
+    - secrets
+    - services
+    - statefulsets
+    - storageclasses
+    - validatingwebhookconfigurations
+    - volumeattachments

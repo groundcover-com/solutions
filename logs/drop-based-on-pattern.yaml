@@ -1,0 +1,2 @@
+logsDropFilters:
+ - '{namespace=~".*",workload=~".*"} |~ "SomeRegexPattern"'

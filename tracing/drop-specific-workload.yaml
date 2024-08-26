@@ -1,0 +1,3 @@
+tracesWorkloadFilters:
+  - matchType: "block"
+    regex: "do-not-show-me"

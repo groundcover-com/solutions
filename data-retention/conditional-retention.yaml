@@ -1,0 +1,11 @@
+global:
+  traces:
+    retention: 24h # default traces retention
+    custom_retention_overrides: # overrides the default value above
+      - retention: 7d
+        conditions:
+          cluster: 'prod'
+          namespace: 'app'
+      - retention: 14d
+        conditions:
+          env: 'staging'

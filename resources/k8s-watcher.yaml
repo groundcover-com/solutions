@@ -1,0 +1,8 @@
+k8sWatcher:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 300Mi
+    limits:
+      cpu: 100m
+      memory: 500Mi

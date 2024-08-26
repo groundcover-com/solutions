@@ -1,0 +1,9 @@
+agent:
+  alligator:
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 160m
+      limits:
+        memory: 700Mi
+        cpu: 800m
