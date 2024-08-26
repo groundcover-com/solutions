@@ -1,0 +1,2 @@
+logsDropFilters:
+ - '{workload!="allow-this-workload", workload!="allow-this-workload-also"}'

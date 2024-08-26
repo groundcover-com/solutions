@@ -1,0 +1,3 @@
+logsDropFilters:
+ - '{namespace="drop-this-namespace"}'
+ - '{namespace="drops-this-namespace-also"}'

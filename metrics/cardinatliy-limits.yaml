@@ -1,0 +1,4 @@
+custom-metrics:
+  extraArgs:
+    remoteWrite.maxHourlySeries: "1000000"
+    remoteWrite.maxDailySeries: "10000000"

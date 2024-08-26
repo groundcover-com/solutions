@@ -1,0 +1,3 @@
+global:
+  events:
+    retention: 7d

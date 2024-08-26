@@ -1,0 +1,3 @@
+victoria-metrics-single:
+  server:
+    retentionPeriod: 7d # {amount}[h(ours), d(ays), w(eeks), y(ears)]

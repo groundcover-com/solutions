@@ -1,0 +1,2 @@
+logsDropFilters:
+ - '{level="trace"}'

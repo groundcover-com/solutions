@@ -1,0 +1,16 @@
+victoria-metrics-operator:
+    enabled: true
+    builtinVMAgent:
+      enabled: true
+      spec:
+        selectAllByDefault: true
+        podScrapeSelector: null
+        serviceScrapeSelector: null
+        nodeScrapeSelector: null
+        staticScrapeSelector: null
+        probeSelector: null
+        extraArgs:
+          remoteWrite.maxDailySeries: "100000000" #recommended if you have a lot of metrics
+          remoteWrite.maxHourlySeries: "10000000" #recommended if you have a lot of metrics
+          promscrape.maxScrapeSize: "200000000" #recommended if you have a lot of metrics
+        replicaCount: 1

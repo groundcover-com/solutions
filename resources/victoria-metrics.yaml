@@ -1,0 +1,9 @@
+victoria-metrics-single:
+  server:
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 5000Mi
+      limits:
+        cpu: 1000m
+        memory: 5000Mi
